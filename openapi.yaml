@@ -1,0 +1,50 @@
+openapi: 3.0.0
+info:
+  title: MiniLiga Express API
+  version: 0.1.0
+paths:
+  /api/teams:
+    get:
+      summary: List teams
+      responses: { '200': { description: OK } }
+    post:
+      summary: Create team
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: { name: { type: string } }
+      responses: { '201': { description: Created } }
+  /api/matches/{id}/result:
+    post:
+      summary: Report match result
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                home_score: { type: integer }
+                away_score: { type: integer }
+      responses: { '200': { description: OK } }
+  /api/standings:
+    get:
+      summary: Get standings
+      responses: { '200': { description: OK } }
+  /api/matches:
+    get:
+      summary: List matches
+      parameters:
+        - in: query
+          name: played
+          required: false
+          schema: { type: boolean }
+      responses: { '200': { description: OK } }
